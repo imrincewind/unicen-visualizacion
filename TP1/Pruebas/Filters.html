@@ -65,6 +65,38 @@
 			 ctx.putImageData(imageData,0,0);
 			}
 		}
+		function pastela(image){
+			ctx.drawImage(image,0,0);
+		 imageData = ctx.getImageData(0,0,image.width,image.height);
+			for (x=0; x<imageData.width; x++){
+			for (y = 0 ; y < imageData.height; y++){
+				var red= getRed(imageData,x,y);
+				var green = getGreen(imageData,x,y);
+				var blue = getBlue(imageData,x,y);
+				var middle = (red + green + blue)/3;
+				var amount = 30;
+
+				if(red < middle){
+					red = red + amount;
+				}else if (red > middle){
+					red = red - amount;
+				}
+				if(green < middle){
+					green = green + amount;
+				}else if (green > middle){
+					green = green - amount;
+				}
+				if(blue < middle){
+					blue = blue + amount;
+				}else if (blue > middle){
+					blue = blue - amount;
+				}
+				setPixel(imageData,x,y,red,green,blue,255);
+
+		}
+		 ctx.putImageData(imageData,0,0);
+		}
+	}
 		function diffuser(image){
 			ctx.drawImage(image,0,0);
 		 imageData = ctx.getImageData(0,0,image.width,image.height);
@@ -101,16 +133,39 @@
 			}
 			 ctx.putImageData(imageData,0,0);
 			}
+			function mix(image1,image2){
+				ctx.drawImage(image1,0,0);
+				ctx.drawImage(image2,0,0);
+			 imageData1 = ctx.getImageData(0,0,image1.width,image1.height);
+			 imageData2 = ctx.getImageData(0,0,image2.width,image2.height);
 
+			 for (x = 0; x<imageData1.width; x++){
+				for (y = 0 ; y < imageData1.height; y++){
+					if (x%2 == 0 && y%2 == 0){
+							setPixel(imageData1, x, y, getRed(imageData1,x,y), getGreen(imageData1,x,y),getBlue(imageData1,x,y), 255);
+					}else{
+						setPixel(imageData1, x, y, getRed(imageData2,x,y), getGreen(imageData2,x,y),getBlue(imageData2,x,y), 255);
+					}
+
+				}
+			}
+			 ctx.putImageData(imageData1,0,0);
+			}
 			 var image1 = new Image();
+			 var image2 = new Image();
 			 image1.src = "img/playground.jpg";
+			 image2.src = "img/background.jpg";
 			 image1.onload = function(){
+				 //image2.onload = function(){
 				//original(this);//OK
-				//negative(this);//OK
-				// greyScale(this);//OK
+				negative(this);//OK
+				//greyScale(this);//OK
 				 //binaire(this);//OK
-				 //lineDrawer(this);//OK
-				diffuser(this);//OK
+				// lineDrawer(this);//OK
+				//diffuser(this);//OK
+				//pastela(this);//WTF
+				//mix(image1,image2);///WWTTFF
+			//	}
 			 }
 			 function getRed(imageData,x,y){
 				 index = (x+y*imageData.width) * 4;
