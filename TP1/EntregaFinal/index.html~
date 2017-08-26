@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="layout/styles/layout.css" type="text/css" />
 <script type="text/javascript" src="layout/scripts/jquery.min.js"></script>
 <script type="text/javascript">
-
+//asd
 $(document).ready(function () {
     $('.photo_category').showFeatureText();
     $(".thumbs a").click(function () {
