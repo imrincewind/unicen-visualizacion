@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Filters</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="layout/styles/layout.css" type="text/css" />
+<script type="text/javascript" src="layout/scripts/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.photo_category').showFeatureText();
+    $(".thumbs a").click(function () {
+        var imgpath = $(this).attr("href");
+        var imgalt = $(this).attr("alt");
+        $("#placeholder").attr({
+            src: imgpath,
+            alt: imgalt
+        });
+        return false;
+    });
+});
+$.fn.showFeatureText = function () {
+    return this.each(function () {
+        var box = $(this);
+        var text = $('span', this);
+        text.css({
+            display: 'block',
+            position: 'absolute',
+            top: '0',
+            left: '0'
+        }).hide();
+        box.hover(function () {
+            text.slideDown("fast");
+        }, function () {
+            text.slideUp("fast");
+        });
+    });
+}
+</script>
+</head>
+<body id="top">
+<div class="wrapper col1">
+  <div id="header" class="clear">
+    <div class="fl_left">
+      <h1><a href="index.html">Filters</a></h1>
+      <p>Ezequiel Fazio</p>
+    </div>
+
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+<div class="wrapper col2">
+  <div id="homepage" class="clear">
+
+    <p>	<canvas id="canvas" width="658" height="432" style="border:#000 solid 1px;" />
+    <canvas id="canvas2" width="658" height="432" style="border:#000 solid 1px;" />
+</p>
+<div id="createPNGButton">
+    <button onclick="putImage()">Guardar Imagen</button>
+</div>
+    <div class="fl_right">
+      <input type="file" id="files" name="files[]" />
+        <br />
+        <ul class="thumbs">
+        <li><input type="image"  onclick="original();" img src="img/muestraorig.jpg" alt="" /></a></li>
+        <li><input type="image"  onclick="negative();" img src="img/muestraneg.jpg" alt="" /></a></li>
+        <li><input type="image"  onclick="greyScale();" img src="img/muestragris.jpg" alt="" /></a></li>
+        <li><input type="image"  onclick="lineDrawer();" img src="img/muestralineada.jpg" alt="" /></a></li>
+        <li><input type="image"  onclick="diffuser();" img src="img/muestrablur.jpg" alt="" /></a></li>
+        <li class="last"><input type="image"  onclick="binaire();" img src="img/muestrabin.jpg" alt="" /></a></li>
+            <input id="slider" type="range" Min="0" max="255" Value="0"  Step="1">
+
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="wrapper">
+  <div id="copyright" class="clear">
+    <p class="fl_left">Interfaces -TUDAI- 2017  <a href="#">Ezequiel Fazio</a></p>
+
+  </div>
+</div>
+</body>
+<script>
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+function Circle(){
+  this.posX = 4;
+  this.posY = 4;
+  this.radio = 10;
+  this.color = '#141444';
+}
+function Circle(paramPosX, paramPosY, paramRadio, paramColor){
+  this.posX = paramPosX;
+  this.posY = paramPosY;
+  this.radio = paramRadio;
+  this.color = paramColor;
+}
+Circle.prototype.message = function(){
+  alert("I'm a Circle with Radio: " + this.radio);
+}(
+
+var circle1 = new Circle(4,4,10,'#141444');
+var circle2 = new Circle(5,5,10,'#ffffff');
+var circle3 = new Circle(6,6,10,'#000000');
+var circle4 = new Circle(1,9,44,'#14ff44');
+ctx.fillStyle = circle4.color;
+ctx.beginPath();
+ctx.arc(250,250,100,0,Math.PI * 2);
+ctx.fill();
+ctx.closePath();
+</script>
+</html>

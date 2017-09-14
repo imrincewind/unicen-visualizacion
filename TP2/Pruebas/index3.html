@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Canvas Drag and Drop Test</title>
+</head>
+<body>
+<section>
+
+<div>
+<canvas id="canvas" width="900" height="480">
+
+</canvas>
+</div>
+
+<script type="text/javascript">
+
+var canvas;
+var ctx;
+var x = 155;
+var y = 50;
+var WIDTH = 900;
+var HEIGHT = 480;
+var dragok = false;
+
+function rect(x,y,w,h) {
+ ctx.beginPath();
+ ctx.rect(x,y,w,h);
+ ctx.closePath();
+ ctx.fill();
+}
+
+function clear() {
+ ctx.clearRect(0, 0, WIDTH, HEIGHT);
+}
+
+function init() {
+ canvas = document.getElementById("canvas");
+ ctx = canvas.getContext("2d");
+ return setInterval(draw, 50);
+}
+
+function draw() {
+ clear();
+ ctx.fillStyle = "#222222";
+ rect(0,0,WIDTH,HEIGHT);
+ ctx.fillStyle = "#21450f";
+ rect(x - 28, y - 28, 91, 25);
+ ctx.fillStyle = "#4f4ff4";
+ ctx.beginPath();
+    ctx.beginPath();
+       ctx.fillRect(50, 400, 150, 20);
+       ctx.fillRect(115,250, 20, 150);
+       ctx.closePath();
+
+
+}
+
+function myMove(e){
+ if (dragok){
+  x = e.pageX - canvas.offsetLeft;
+  y = e.pageY - canvas.offsetTop;
+ }
+}
+
+function myDown(e){
+ if (e.pageX < x + 15 + canvas.offsetLeft && e.pageX > x - 15 +
+ canvas.offsetLeft && e.pageY < y + 15 + canvas.offsetTop &&
+ e.pageY > y -15 + canvas.offsetTop){
+  x = e.pageX - canvas.offsetLeft;
+  y = e.pageY - canvas.offsetTop;
+  dragok = true;
+  canvas.onmousemove = myMove;
+ }
+}
+
+function myUp(){
+ dragok = false;
+ canvas.onmousemove = null;
+}
+
+init();
+canvas.onmousedown = myDown;
+canvas.onmouseup = myUp;
+
+</script>
+
+</section>
+</body>
+</html>
+﻿
